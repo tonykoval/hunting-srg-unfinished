@@ -51,13 +51,25 @@ prize when both exhaust: since their $f=17$ row is already closed,
 — or the first known graph with these parameters, if a lift lands first.
 </p>
 
-<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>enumeration stage</em></h2>
+<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>enumeration nearly settled</em></h2>
 
 <p>
-<em>Status 2026-08-10.</em> The independent re-count against
-Behbahani–Lam's published $5$ orbit matrices is running. Counts must agree
-before any lift is trusted; a disagreement in either direction would itself
-be a finding.
+<em>Status 2026-08-10, later the same day.</em> The re-count played out as a
+small drama in the pipeline's own terms. The first CP-SAT enumeration ran
+out of its hour with <strong>status FEASIBLE — incomplete</strong> — holding
+$4$ classes against Behbahani–Lam's $5$; under the claim discipline that
+comparison is <em>forbidden</em>, and rightly so. The Rust generator (full
+diagonals) then finished properly in two seconds:
+<strong>$5$ orbit matrices — matching Behbahani–Lam's $5$ exactly</strong>,
+the second fifteen-year count agreement of the campaign. The spectral pin
+sharpens the picture: traces must lie in $\{12,30,48\}$, and the incomplete
+run's four classes sat only at $12$ and $30$ — a trace-split re-enumeration
+(three small complete searches, one per admissible trace) is finishing the
+CP-SAT side so both counters agree at full completeness. Then: five
+exhaustive lifts. A historical note raises the stakes — an April-era
+prediction in the project's own log claimed this parameter set's matrices
+<em>"won't lift"</em>, on machinery since shown incomplete. The five lifts
+will test that claim honestly for the first time.
 </p>
 
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
