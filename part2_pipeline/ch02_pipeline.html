@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 2 · Enumerate Twice, Lift Exhaustively — Hunting the Unfinished</title>
+<link rel="stylesheet" href="../assets/book.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="book-title-string">Hunting the Unfinished</div>
+
+<div class="book-shell">
+
+<nav class="nav-sidebar" aria-label="Table of contents">
+    <h2>Front Matter</h2>
+    <ol><li><a href="../index.html">Title &amp; Contents</a></li></ol>
+    <h2>Part I — The Archaeology</h2>
+    <ol><li><a href="../part1_archaeology/ch01_question_marks.html">1. The Question Marks</a></li></ol>
+    <h2>Part II — The Pipeline</h2>
+    <ol start="2"><li><a href="ch02_pipeline.html">2. Enumerate Twice, Lift Exhaustively</a></li></ol>
+    <h2>Part III — The Verdicts</h2>
+    <ol start="3"><li><a href="../part3_verdicts/ch03_verdicts.html">3. The Verdicts</a></li></ol>
+</nav>
+
+<main class="chapter">
+
+<div class="chapter-number">Chapter 2 · Part II</div>
+<h1 class="chapter-title">Enumerate Twice, Lift Exhaustively, Distrust Everything</h1>
+
+<p class="lead">
+Finishing someone else's 2011 search with 2026 tools sounds like a matter of
+horsepower. It is mostly a matter of paranoia. Every component of this
+pipeline earned its guard rails by nearly producing a wrong answer first.
+</p>
+
+<h2>2.1 &nbsp; Stage one: enumerate twice</h2>
+
+<p>
+No orbit matrix is trusted until <strong>two independent enumerations
+agree</strong> — different algorithms, different codebases, compared as
+canonical forms. The rule exists because this project caught its own
+generator returning <em>one</em> matrix where two exist (on
+$\mathrm{srg}(25,12,5,6)$, $p=5$ — a parameter set whose graphs are fully
+known, which is why the error was catchable at all), and then caught the
+same class of bug again, live, on $\mathrm{srg}(85,30,11,10)$: the default
+search path reported <em>"No orbit matrices found"</em> where two exist,
+because a legacy optimisation quietly capped the diagonal values it would
+try. An enumeration you have not cross-checked is a conjecture with a
+progress bar.
+</p>
+
+<h2>2.2 &nbsp; Stage two: lift exhaustively</h2>
+
+<p>
+A lift assigns to every orbit-matrix entry a circulant on $\mathbb{Z}_p$
+consistent with symmetry, then demands the assembled $n\times n$ matrix be a
+genuine strongly regular graph. The search over circulant choices is finite
+and, for these cases, feasible — that is the whole reason the question marks
+are finishable. Two properties matter:
+</p>
+
+<ul>
+    <li><strong>Exhaustive means exhaustive.</strong> The lift enumerates
+        every admissible circulant assignment, so an empty run is itself a
+        certificate: <em>that orbit matrix lifts to nothing</em>. Combined
+        over all matrices of a case, it becomes the nonexistence half of the
+        two possible endings.</li>
+    <li><strong>Every found graph is verified twice.</strong> Once inside the
+        tool (the full $A^2$ identity plus defence-in-depth invariants), and
+        once by a standalone checker that shares no code with it.</li>
+</ul>
+
+<h2>2.3 &nbsp; The two near-misses that built the guard rails</h2>
+
+<div class="callout theorem">
+    <div class="callout-title">Near-miss one: the lift that dropped every
+    fixed vertex</div>
+    <p>
+    Drilled on the real quotient matrices of $T(9)=\mathrm{srg}(36,14,7,4)$
+    — matrices that provably lift, since $T(9)$ is a lift of each — the
+    pipeline passed at $f=0$ and <strong>failed at $f=3$</strong>: thousands
+    of candidate models, zero valid graphs, from a matrix with a guaranteed
+    answer. The cause was a silent convention mismatch — the lift read the
+    fix-orbit block as a $0/1$ indicator while true quotients store counts
+    $\{0,p\}$ — and the decoder dropped every fixed vertex's orbit
+    adjacency. The tool now normalises both conventions, loudly. Had the
+    drill not been run, a genuine future discovery could have lifted to
+    "nothing" and been dismissed as a spurious matrix.
+    </p>
+</div>
+
+<div class="callout theorem">
+    <div class="callout-title">Near-miss two: the timeout dressed as a
+    completion</div>
+    <p>
+    The lift's summary line — <em>"Orbit 0: 0 solutions, 9860 nodes"</em> —
+    used to print identically whether the search had finished or hit its
+    deadline. During the $\mathrm{srg}(85)$ run this nearly minted a false
+    nonexistence statement <em>twice in one afternoon</em>; the tell was
+    that the candidate count scaled linearly with the budget, a deadline's
+    signature. Every summary now ends in
+    <code>EXHAUSTED (search complete)</code> or
+    <code>TIMEOUT (search INCOMPLETE)</code>, and the campaign rule is
+    absolute: <strong>only an explicit EXHAUSTED supports a claim</strong>.
+    A timed-out zero is a shrug, not a theorem.
+    </p>
+</div>
+
+<h2>2.4 &nbsp; The claim discipline</h2>
+
+<p>
+One more guard, inherited from the sibling books' hardest lesson: a finished
+case is checked against the literature <em>before</em> any statement about
+novelty. The default posture for these cases is "finishing Behbahani–Lam's
+bookmark," with the record searched for anyone who finished it in the
+intervening years. Verification claimed as discovery is the one bug no
+tooling can catch.
+</p>
+
+<div class="chapter-nav">
+    <a class="prev" href="../part1_archaeology/ch01_question_marks.html">Ch 1 · The Question Marks</a>
+    <a class="next" href="../part3_verdicts/ch03_verdicts.html">Ch 3 · The Verdicts</a>
+</div>
+
+<footer class="book-foot">
+    <p><em>Hunting the Unfinished</em> · Chapter 2 · Tony Koval · CC-BY-4.0.</p>
+</footer>
+
+</main>
+
+</div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="BookInit.renderMath()"></script>
+<script src="../assets/book.js"></script>
+
+</body>
+</html>
