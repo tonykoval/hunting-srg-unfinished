@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 5 · The Iron Law and Other Hard-Won Rules — Hunting the Unfinished</title>
+<link rel="stylesheet" href="../assets/book.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="book-shell">
+
+<nav class="nav-sidebar" aria-label="Table of contents">
+    <h2>Front Matter</h2>
+    <ol><li><a href="../index.html">Title &amp; Contents</a></li></ol>
+    <h2>Part I — The Archaeology</h2>
+    <ol><li><a href="../part1_archaeology/ch01_question_marks.html">1. The Question Marks</a></li></ol>
+    <h2>Part II — The Pipeline</h2>
+    <ol start="2"><li><a href="../part2_pipeline/ch02_pipeline.html">2. Enumerate Twice, Lift Exhaustively</a></li></ol>
+    <h2>Part III — The Verdicts</h2>
+    <ol start="3"><li><a href="../part3_verdicts/ch03_verdicts.html">3. The Verdicts</a></li></ol>
+    <h2>Part IV — The Road Here</h2>
+    <ol start="4">
+        <li><a href="ch04_other_doors.html">4. Every Other Door</a></li>
+        <li><a href="ch05_laws.html" class="current">5. The Iron Law and Other Hard-Won Rules</a></li>
+    </ol>
+</nav>
+
+<main class="chapter">
+
+<div class="chapter-number">Chapter 5 · Part IV</div>
+<h1 class="chapter-title">The Iron Law and Other Hard-Won Rules</h1>
+
+<p class="lead">
+A year of hunting strongly regular graphs distils to a handful of rules.
+Each was paid for — in wasted core-hours, in claims that had to be
+retracted before anyone read them, or in bugs that waited months to be
+caught. They are stated here in full because the question-mark cases are
+exactly where all of them converge.
+</p>
+
+<h2>5.1 &nbsp; The iron law</h2>
+
+<div class="callout definition">
+    <div class="callout-title">The iron law of prescribed-symmetry hunting</div>
+    <p>
+    Prescribed-symmetry search reaches only <em>highly symmetric</em>
+    graphs, and at small vertex counts those catalogs are already complete
+    — so it finds nothing new there. The unknown strongly regular graphs,
+    where they exist at all, are overwhelmingly <em>low-symmetry or
+    large</em>, which is precisely where prescribed symmetry cannot look.
+    </p>
+</div>
+
+<p>
+This law is why roughly $950{,}000$ genuinely new strongly regular graphs
+were constructed by this project at <em>incomplete-catalog</em> parameters
+(via switching cascades seeded on low-automorphism graphs) while the
+<em>open-existence</em> parameters yielded none. The question-mark cases
+are the honest exception the law allows: there the prescribed-symmetry
+search is not a hunting strategy but a <em>bounded question</em> — does a
+$\mathbb{Z}_{17}$- or $\mathbb{Z}_{11}$-symmetric example exist, yes or
+no — and bounded questions can be finished. Nobody should expect a graph
+behind these doors; the law says the likely ending is a small clean
+theorem. But the doors are finite, and finishable, and fifteen years
+overdue.
+</p>
+
+<h2>5.2 &nbsp; The incompleteness saga</h2>
+
+<p>
+The single most consequential bug in the project's history was quiet: for
+primes $p \geq 5$, the orbit-matrix generator capped diagonal entries at
+$\{0, p{-}1\}$, silently discarding every matrix with an intermediate
+internal valency. Three separate times it produced a confident
+<em>"No orbit matrices found"</em> on cases where matrices exist — once
+live on $\mathrm{srg}(85,30,11,10)$ itself. The archaeology that exposed
+it was pure test hygiene: the fully-catalogued
+$\mathrm{srg}(25,12,5,6)$ under $\mathbb{Z}_5$ must have exactly $2$ orbit
+matrices; the old engine returned $1$, and nine regression tests had been
+faithfully pinning the wrong number for months. (Both of those $25$-vertex
+matrices, incidentally, lift — verified end-to-end by the modern
+pipeline.) Every "zero matrices" claim from the capped era had to be
+re-derived; the era's teaching is Chapter 2's refrain: <strong>an
+enumeration you have not cross-checked is a conjecture with a progress
+bar</strong>.
+</p>
+
+<p>
+The same hygiene later paid twice more: the composite-order unlock (odd
+$q$ lifts route through the prime search, validated on $T(9)$ under
+$\mathbb{Z}_9$) — whose solution <em>counts</em> are now flagged for
+re-audit after the pruner affair of §2.3 — and the discovery that the
+lift's default pruner could erase a whole isomorphism class while
+stamping the search complete. Every instrument in this observatory has
+lied at least once. The pipeline assumes nothing else.
+</p>
+
+<h2>5.3 &nbsp; What the machines that talk are actually for</h2>
+
+<p>
+This project runs inside a collaboration with reasoning models, and it
+measured the obvious question early: can a language model <em>solve</em>
+these problems — construct a graph, crack an open case? The answer,
+tested against every instance that mattered, was no. The productive roles
+were narrower and better: <em>deriving encodings, proposing symmetry
+arguments, and manufacturing small theorems</em> that gate the compute.
+The measurement aged well. The Galois multiplicity filter of §2.1½ — a
+page of classical character counting that killed four of seven open
+matrices and then sharpened the solver's constraints on the survivors —
+is exactly that pattern executing at full value: the model did not
+out-search the solver; it noticed the search was unnecessary.
+</p>
+
+<h2>5.4 &nbsp; The filter travels</h2>
+
+<p>
+The arithmetic stage is not bespoke to the three question marks. Run
+across the project's other prime-order caches the same afternoon it was
+derived, it killed $4$ of $6$ enumerated matrices for
+$\mathrm{srg}(115,18,1,3)$ under $\mathbb{Z}_{23}$ — a case
+<em>outside</em> Behbahani–Lam's tables — and it makes a standing
+prediction for the largest question mark: of the $173$ orbit matrices
+awaiting re-enumeration for $\mathrm{srg}(99,42,21,15)$ under
+$\mathbb{Z}_{11}$, <strong>only those of trace $30$ can survive</strong>.
+When that enumeration lands, the prediction gets tested in public, in
+Chapter 3. A rule that risks nothing forecasts nothing.
+</p>
+
+<div class="chapter-nav">
+    <a class="prev" href="ch04_other_doors.html">Ch 4 · Every Other Door</a>
+</div>
+
+<footer class="book-foot">
+    <p><em>Hunting the Unfinished</em> · Chapter 5 · Tony Koval · CC-BY-4.0.</p>
+</footer>
+
+</main>
+
+</div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="BookInit.renderMath()"></script>
+<script src="../assets/book.js"></script>
+
+</body>
+</html>
