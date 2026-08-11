@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix A · Reproduce Everything — Hunting the Unfinished</title>
+<link rel="stylesheet" href="../assets/book.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="book-shell">
+
+<nav class="nav-sidebar" aria-label="Table of contents">
+    <h2>Front Matter</h2>
+    <ol><li><a href="../index.html">Title &amp; Contents</a></li></ol>
+    <h2>Part I — The Archaeology</h2>
+    <ol><li><a href="../part1_archaeology/ch01_question_marks.html">1. The Question Marks</a></li></ol>
+    <h2>Part II — The Pipeline</h2>
+    <ol start="2"><li><a href="../part2_pipeline/ch02_pipeline.html">2. Enumerate Twice, Lift Exhaustively</a></li></ol>
+    <h2>Part III — The Verdicts</h2>
+    <ol start="3"><li><a href="../part3_verdicts/ch03_verdicts.html">3. The Verdicts</a></li></ol>
+    <h2>Part IV — The Road Here</h2>
+    <ol start="4">
+        <li><a href="../part4_road/ch04_other_doors.html">4. Every Other Door</a></li>
+        <li><a href="../part4_road/ch05_laws.html">5. The Iron Law and Other Hard-Won Rules</a></li>
+    </ol>
+    <h2>Appendices</h2>
+    <ol>
+        <li><a href="reproduce.html" class="current">A. Reproduce Everything</a></li>
+        <li><a href="checker.html">B. The Filter, Live</a></li>
+    </ol>
+</nav>
+
+<main class="chapter">
+
+<div class="chapter-number">Appendix A</div>
+<h1 class="chapter-title">Reproduce Everything</h1>
+
+<p class="lead">
+Every claim in Chapter 3 is backed by a command a stranger can run. This
+appendix lists them, in pipeline order, each with the drill that must pass
+<em>before</em> the real run is believed. All tools live in the companion
+repository, <a href="https://github.com/tonykoval/orbit-gen">orbit-gen</a>.
+</p>
+
+<h2>A.1 &nbsp; Enumerate (twice)</h2>
+
+<pre><code># CP-SAT enumerator (counts labelled solutions, reduces to iso classes):
+python3 scripts/enum_general.py 88 27 6 9 11 out/m88.json        # full
+python3 scripts/enum_general.py 88 27 6 9 11 out/m88_t30.json 30 # one trace slice
+ENUM_TL=21600 python3 scripts/enum_general.py ...                # longer budget
+
+# Independent second count: the Rust generator (full diagonals ON — see A.5):
+ORBIT_FULL_DIAG=1 target/release/search 88 27 6 9 11 0</code></pre>
+
+<p>
+Rule: a count is usable only at <code>OPTIMAL</code> (CP-SAT) or a completed
+run (Rust), and the two engines must agree as canonical-form sets. A
+<code>FEASIBLE</code> count is a lower bound and must never be compared.
+</p>
+
+<h2>A.2 &nbsp; Filter by arithmetic</h2>
+
+<pre><code>python3 scripts/galois_mult_filter.py out/m88.json 88 27 6 9 11</code></pre>
+
+<p>
+Controls first: the real quotients of $T(9)$ and both
+$\mathrm{srg}(25,12,5,6)$ matrices must SURVIVE (they provably lift).
+Then the open case: matrices reported <code>NO LIFT</code> are dead by the
+theorem of §2.1½ — no search needed, and the reasoning is checkable by
+hand (or in Appendix B, in your browser).
+</p>
+
+<h2>A.3 &nbsp; The SAT road</h2>
+
+<pre><code># encode (char-mult = per-character multiplicity a from the filter output):
+python3 scripts/srg_lift_sat_param.py --n 85 --k 30 --lam 11 --mu 10 --p 17 \
+    --matrix "4 5 5 8 8; 5 10 5 5 5; 5 5 10 5 5; 8 5 5 4 8; 8 5 5 8 4" \
+    --char-mult 2 --out t32.opb --varmap t32.vm.json
+# solve:
+roundingsat --print-sol=1 t32.opb &gt; t32.sol
+# decode + independent full verification (A^2 identity from scratch):
+python3 scripts/srg_lift_sat_decode.py t32.vm.json t32.sol</code></pre>
+
+<p>
+Drill: on both $\mathrm{srg}(25,12,5,6)$ matrices this chain must return
+SATISFIABLE and print <code>VERIFIED: genuine srg(25,12,5,6)</code>.
+For an <em>unconditional</em> UNSAT add <code>--no-symbreak</code> (the
+symmetry-broken UNSAT is faster but carries an assumption).
+</p>
+
+<h2>A.4 &nbsp; The backtracking road</h2>
+
+<pre><code># input is a LIST of matrices, even for one:  [[...]]
+target/release/lift 85 30 11 10 17 0 --orbit-matrix m.json --timeout 43200 --all</code></pre>
+
+<p>
+Read only the last word of the summary line: <code>EXHAUSTED (search
+complete)</code> supports a claim; <code>TIMEOUT (search INCOMPLETE)</code>
+supports nothing. Since the events of §2.3 (near-miss four), pruning is
+opt-in (<code>LIFT_DIAG_PRUNER=1</code>) and a completeness claim requires
+a pruner-free run or agreement with the independent SAT road.
+</p>
+
+<h2>A.5 &nbsp; Claim → artifact</h2>
+
+<table>
+    <tr><th>Chapter 3 claim</th><th>artifact / marker</th></tr>
+    <tr><td>$85/\mathbb{Z}_{17}$: two orbit matrices</td>
+        <td><code>orbit_85_30_11_10_p17_f0.json</code> (needs
+        <code>ORBIT_FULL_DIAG=1</code> — the default path has produced
+        false zeros on this very case)</td></tr>
+    <tr><td>$88/\mathbb{Z}_{11}$: five orbit matrices, $5=5$</td>
+        <td><code>orbit_88_27_6_9_p11_f0.json</code> + CP-SAT trace slices
+        <code>out/miqcp/srg88_z11_t*.json</code></td></tr>
+    <tr><td>trace-$48$ slice complete, $1=1$</td>
+        <td><code>status: OPTIMAL</code> line, slice run of 2026-08-11</td></tr>
+    <tr><td>trace-$50$, trace-$12/48$ matrices lift to nothing</td>
+        <td>§2.1½ theorem + <code>galois_mult_filter.py</code> output;
+        writeup <code>docs/galois_multiplicity_filter_2026_08_10.md</code></td></tr>
+    <tr><td>solver verdicts on the survivors</td>
+        <td><code>out/miqcp/sat_lift_verdicts.tsv</code> (append-only,
+        one line per attempt, TIMEOUTs included)</td></tr>
+</table>
+
+<div class="chapter-nav">
+    <a class="prev" href="../part4_road/ch05_laws.html">Ch 5 · The Iron Law</a>
+    <a class="next" href="checker.html">App. B · The Filter, Live</a>
+</div>
+
+<footer class="book-foot">
+    <p><em>Hunting the Unfinished</em> · Appendix A · Tony Koval · CC-BY-4.0.</p>
+</footer>
+
+</main>
+
+</div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="BookInit.renderMath()"></script>
+<script src="../assets/book.js"></script>
+
+</body>
+</html>

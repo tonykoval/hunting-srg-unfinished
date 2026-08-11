@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix B · The Filter, Live — Hunting the Unfinished</title>
+<link rel="stylesheet" href="../assets/book.css">
+<link rel="stylesheet" href="../assets/print.css" media="print">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+.checker { font-family: var(--font-sans); }
+.checker label { display:block; margin-top:0.6em; font-weight:600; font-size:0.9rem; }
+.checker input[type=number] { width:5.5em; padding:0.25em 0.4em; margin-right:0.8em; }
+.checker textarea { width:100%; min-height:7em; font-family:monospace; font-size:0.85rem; padding:0.5em; box-sizing:border-box; }
+.checker button { margin:0.8em 0.5em 0 0; padding:0.45em 1em; cursor:pointer; }
+#verdict { margin-top:1em; padding:1em; border-radius:6px; font-family:monospace; font-size:0.9rem; white-space:pre-wrap; }
+#verdict.dead { background:#fde8e8; border:1px solid #c0392b; }
+#verdict.alive { background:#e8f8ef; border:1px solid #1e8e4e; }
+#verdict.err { background:#fff8e1; border:1px solid #b7950b; }
+</style>
+</head>
+<body>
+
+<div class="book-shell">
+
+<nav class="nav-sidebar" aria-label="Table of contents">
+    <h2>Front Matter</h2>
+    <ol><li><a href="../index.html">Title &amp; Contents</a></li></ol>
+    <h2>Part I — The Archaeology</h2>
+    <ol><li><a href="../part1_archaeology/ch01_question_marks.html">1. The Question Marks</a></li></ol>
+    <h2>Part II — The Pipeline</h2>
+    <ol start="2"><li><a href="../part2_pipeline/ch02_pipeline.html">2. Enumerate Twice, Lift Exhaustively</a></li></ol>
+    <h2>Part III — The Verdicts</h2>
+    <ol start="3"><li><a href="../part3_verdicts/ch03_verdicts.html">3. The Verdicts</a></li></ol>
+    <h2>Part IV — The Road Here</h2>
+    <ol start="4">
+        <li><a href="../part4_road/ch04_other_doors.html">4. Every Other Door</a></li>
+        <li><a href="../part4_road/ch05_laws.html">5. The Iron Law and Other Hard-Won Rules</a></li>
+    </ol>
+    <h2>Appendices</h2>
+    <ol>
+        <li><a href="reproduce.html">A. Reproduce Everything</a></li>
+        <li><a href="checker.html" class="current">B. The Filter, Live</a></li>
+    </ol>
+</nav>
+
+<main class="chapter">
+
+<div class="chapter-number">Appendix B</div>
+<h1 class="chapter-title">The Filter, Live</h1>
+
+<p class="lead">
+The Galois multiplicity filter of §2.1½ is a page of integer arithmetic —
+small enough to run right here, in your browser, on any orbit matrix you
+type. This page is the theorem, executable. It killed the $2^{155}$
+monster; you can watch it do so below, or feed it a matrix of your own.
+</p>
+
+<p>
+Everything is exact integer arithmetic (no floating point, no eigensolver):
+the spectrum containment test is the annihilation identity
+$(B-kI)(B-rI)(B-sI)=0$, the multiplicity of $k$ comes from
+$\mathrm{tr}\big[(B-rI)(B-sI)\big] = m_k (k-r)(k-s)$, and $m_0$ from the
+trace. The verdict is the divisibility $(p-1) \mid (m_r - m_0)$.
+</p>
+
+<div class="checker">
+    <label>Parameters $(n, k, \lambda, \mu, p)$</label>
+    <input type="number" id="pn" value="85"> <input type="number" id="pk" value="30">
+    <input type="number" id="pl" value="11"> <input type="number" id="pm" value="10">
+    <input type="number" id="pp" value="17">
+    <label>Orbit matrix (rows on lines, or separated by ";")</label>
+    <textarea id="mat">10 5 5 5 5
+5 10 5 5 5
+5 5 10 5 5
+5 5 5 10 5
+5 5 5 5 10</textarea>
+    <div>
+        <button onclick="runFilter()">Run the filter</button>
+        <button onclick="preset(85,30,11,10,17,'10 5 5 5 5; 5 10 5 5 5; 5 5 10 5 5; 5 5 5 10 5; 5 5 5 5 10')">85 trace-50 (the monster)</button>
+        <button onclick="preset(85,30,11,10,17,'4 5 5 8 8; 5 10 5 5 5; 5 5 10 5 5; 8 5 5 4 8; 8 5 5 8 4')">85 trace-32 (survivor)</button>
+        <button onclick="preset(88,27,6,9,11,'0 3 3 3 3 3 6 6; 3 0 3 3 6 6 3 3; 3 3 2 7 2 4 2 4; 3 3 7 2 4 2 4 2; 3 6 2 4 2 4 5 1; 3 6 4 2 4 2 1 5; 6 3 2 4 5 1 2 4; 6 3 4 2 1 5 4 2')">88 trace-12 (dead)</button>
+        <button onclick="preset(88,27,6,9,11,'0 3 3 3 3 3 6 6; 3 4 1 3 5 5 2 4; 3 1 4 3 5 5 2 4; 3 3 3 6 3 3 3 3; 3 5 5 3 4 1 4 2; 3 5 5 3 1 4 4 2; 6 2 2 3 4 4 4 2; 6 4 4 3 2 2 2 4')">88 trace-30 (survivor)</button>
+        <button onclick="preset(25,12,5,6,5,'4 2 2 2 2; 2 4 2 2 2; 2 2 4 2 2; 2 2 2 4 2; 2 2 2 2 4')">control: SRG(25), lifts</button>
+    </div>
+    <div id="verdict" style="display:none"></div>
+</div>
+
+<p style="margin-top:1.5em">
+A <strong>NO LIFT</strong> verdict is a theorem about that matrix, with the
+failing divisibility shown. A <strong>SURVIVES</strong> verdict is not a
+graph — it only means the arithmetic door stays open and the solvers of
+Appendix A take over. The controls behave as controls must: the quotients
+of graphs that exist all survive.
+</p>
+
+<script>
+function preset(n,k,l,m,p,s){
+    document.getElementById('pn').value=n; document.getElementById('pk').value=k;
+    document.getElementById('pl').value=l; document.getElementById('pm').value=m;
+    document.getElementById('pp').value=p; document.getElementById('mat').value=s;
+    runFilter();
+}
+function isqrt(x){ let r=Math.floor(Math.sqrt(x)); while(r*r>x)r--; while((r+1)*(r+1)<=x)r++; return r; }
+function matmul(A,B){const o=A.length;return A.map((row,i)=>row.map((_,j)=>{let s=0;for(let t=0;t<o;t++)s+=A[i][t]*B[t][j];return s;}));}
+function addDiag(A,c){return A.map((row,i)=>row.map((v,j)=>i===j?v+c:v));}
+function show(cls,txt){const d=document.getElementById('verdict');d.className='';d.classList.add(cls);d.style.display='block';d.textContent=txt;}
+function runFilter(){
+    try{
+        const n=+document.getElementById('pn').value,k=+document.getElementById('pk').value,
+              lam=+document.getElementById('pl').value,mu=+document.getElementById('pm').value,
+              p=+document.getElementById('pp').value;
+        const rows=document.getElementById('mat').value.split(/[;\n]/).map(r=>r.trim()).filter(r=>r)
+              .map(r=>r.split(/[\s,]+/).map(Number));
+        const o=rows.length;
+        if(n%p!==0) return show('err','p must divide n (f=0 case): '+n+' mod '+p+' != 0');
+        if(n/p!==o) return show('err','matrix is '+o+'x? but n/p = '+(n/p)+' orbits expected');
+        if(rows.some(r=>r.length!==o||r.some(x=>!Number.isInteger(x)))) return show('err','matrix must be square with integer entries');
+        for(let i=0;i<o;i++)for(let j=0;j<o;j++)if(rows[i][j]!==rows[j][i]) return show('err','matrix not symmetric at ('+i+','+j+')');
+        for(let i=0;i<o;i++){const s=rows[i].reduce((a,b)=>a+b,0); if(s!==k) return show('dead','NO LIFT (malformed): row '+i+' sums to '+s+', not k='+k);}
+        const disc=(lam-mu)*(lam-mu)+4*(k-mu), sq=isqrt(disc);
+        if(sq*sq!==disc) return show('err','irrational eigenvalues (conference-type) — filter needs integral r,s');
+        const r=((lam-mu)+sq)/2, s=((lam-mu)-sq)/2;
+        const two=2*k+(n-1)*(lam-mu);
+        if(two%sq!==0) return show('err','multiplicity formula not integral — parameters infeasible');
+        const mr=((n-1)-two/sq)/2, ms=((n-1)+two/sq)/2;
+        if(!Number.isInteger(mr)) return show('err','non-integer multiplicities — parameters infeasible');
+        // annihilation: (B-kI)(B-rI)(B-sI) = 0
+        const P=matmul(addDiag(rows,-r),addDiag(rows,-s));
+        const A3=matmul(addDiag(rows,-k),P);
+        if(A3.some(row=>row.some(v=>v!==0)))
+            return show('dead','NO LIFT: quotient spectrum is not contained in {'+k+', '+r+', '+s+'}\n(the annihilation identity (B-kI)(B-rI)(B-sI)=0 fails — such a matrix cannot be an equitable quotient of any srg('+n+','+k+','+lam+','+mu+')).');
+        const trP=P.reduce((a,row,i)=>a+row[i],0);
+        const mk=trP/((k-r)*(k-s));
+        if(mk!==1) return show('dead','NO LIFT: eigenvalue k='+k+' has multiplicity '+mk+' in the quotient (must be exactly 1 — a lift is connected).');
+        const trB=rows.reduce((a,row,i)=>a+row[i],0);
+        const m0num=trB-k-(o-1)*s;
+        if(m0num%(r-s)!==0) return show('dead','NO LIFT: trace forces a non-integer multiplicity of r.');
+        const m0=m0num/(r-s);
+        const rem=mr-m0;
+        let out='parameters: srg('+n+','+k+','+lam+','+mu+'), p='+p+'\n'+
+                'graph spectrum: '+k+'^1  '+r+'^'+mr+'  '+s+'^'+ms+'\n'+
+                'quotient spectrum: '+k+'^1  '+r+'^'+m0+'  '+s+'^'+(o-1-m0)+'  (trace '+trB+')\n'+
+                'Galois test: (p-1)=' +(p-1)+ ' must divide m_r - m0 = '+mr+' - '+m0+' = '+rem+'\n';
+        if(rem%(p-1)!==0){
+            out+='\nVERDICT: NO LIFT.  '+(p-1)+' does not divide '+rem+'.\n'+
+                 'Every one of the '+(p-1)+' nontrivial characters must carry the same\n'+
+                 'multiplicity of r (they form one Galois orbit), so m_r - m0 must be a\n'+
+                 'multiple of '+(p-1)+'. It is not. This matrix lifts to nothing — no search required.';
+            return show('dead',out);
+        }
+        const a=rem/(p-1);
+        if(a<0||a>o){
+            out+='\nVERDICT: NO LIFT. Per-character multiplicity a='+a+' is outside [0,'+o+'].';
+            return show('dead',out);
+        }
+        const trchi=a*r+(o-a)*s, cnum=trB-trchi;
+        out+='\nVERDICT: SURVIVES. Every character matrix must have spectrum '+r+'^'+a+' '+s+'^'+(o-a)+'.';
+        if(cnum%p===0 && cnum/p>=0)
+            out+='\nBonus constraint for the solvers: every nonzero shift lies in exactly '+(cnum/p)+' diagonal supports.';
+        show('alive',out);
+    }catch(e){ show('err','error: '+e.message); }
+}
+</script>
+
+<div class="chapter-nav">
+    <a class="prev" href="reproduce.html">App. A · Reproduce Everything</a>
+</div>
+
+<footer class="book-foot">
+    <p><em>Hunting the Unfinished</em> · Appendix B · Tony Koval · CC-BY-4.0.</p>
+</footer>
+
+</main>
+
+</div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="BookInit.renderMath()"></script>
+<script src="../assets/book.js"></script>
+
+</body>
+</html>
