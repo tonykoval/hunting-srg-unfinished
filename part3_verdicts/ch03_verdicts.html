@@ -36,40 +36,51 @@ when its case does — with an explicit EXHAUSTED on every orbit matrix, or a
 graph. Until then, the honest entries are status reports, dated.
 </p>
 
-<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>in progress</em></h2>
+<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>half closed by
+hand</em></h2>
 
 <p>
-<em>Status 2026-08-10.</em> Enumeration settled: the two orbit matrices of
-Chapter 1, matching Behbahani–Lam's count exactly. Lifts: both attacked; the
-trace-$32$ matrix and the trace-$50$ matrix have each produced <strong>zero
-graphs so far across millions of candidate assignments — with no run yet
-reaching EXHAUSTED</strong>. A $12$-hour exhaustive attempt on the
-trace-$32$ matrix is underway; the trace-$50$ matrix (raw circulant space
-$\sim 2^{155}$, heavily pruned in practice) queues behind it. The scoped
-prize when both exhaust: since their $f=17$ row is already closed,
+<em>Status 2026-08-11.</em> Enumeration settled: the two orbit matrices of
+Chapter 1, matching Behbahani–Lam's count exactly. Then the arithmetic
+stage (§2.1½) rewrote the battle map: the trace-$50$ matrix — the
+$\sim 2^{155}$ monster that three $12$-hour searches had timed out
+against — <strong>lifts to nothing, by the Galois multiplicity count</strong>
+($16 \nmid 30$; one line, no compute). Fifteen years of "?" on that matrix,
+and it never needed a computer. The whole case now rides on the trace-$32$
+matrix alone, under attack by the pseudo-Boolean encoder with the
+theorem-derived character-trace constraints wired in (every nonzero shift
+in exactly $2$ diagonal supports). The scoped prize is unchanged: since the
+$f=17$ row is already closed, an UNSAT here finishes
 <em>no $\mathrm{srg}(85,30,11,10)$ admits an automorphism of order $17$</em>
-— or the first known graph with these parameters, if a lift lands first.
+— and a SAT decodes to the first known graph with these parameters.
 </p>
 
-<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>enumeration nearly settled</em></h2>
+<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>five lifts became
+two</em></h2>
 
 <p>
-<em>Status 2026-08-10, later the same day.</em> The re-count played out as a
+<em>Status 2026-08-10.</em> The re-count played out as a
 small drama in the pipeline's own terms. The first CP-SAT enumeration ran
 out of its hour with <strong>status FEASIBLE — incomplete</strong> — holding
 $4$ classes against Behbahani–Lam's $5$; under the claim discipline that
 comparison is <em>forbidden</em>, and rightly so. The Rust generator (full
 diagonals) then finished properly in two seconds:
 <strong>$5$ orbit matrices — matching Behbahani–Lam's $5$ exactly</strong>,
-the second fifteen-year count agreement of the campaign. The spectral pin
-sharpens the picture: traces must lie in $\{12,30,48\}$, and the incomplete
-run's four classes sat only at $12$ and $30$ — a trace-split re-enumeration
-(three small complete searches, one per admissible trace) is finishing the
-CP-SAT side so both counters agree at full completeness. Then: five
-exhaustive lifts. A historical note raises the stakes — an April-era
-prediction in the project's own log claimed this parameter set's matrices
-<em>"won't lift"</em>, on machinery since shown incomplete. The five lifts
-will test that claim honestly for the first time.
+the second fifteen-year count agreement of the campaign.
+</p>
+
+<p>
+<em>Status 2026-08-11.</em> The arithmetic stage then cut the case to
+less than half its size: the Galois count kills every matrix off trace $30$
+— <strong>three of the five lift to nothing by hand</strong> (traces $12$,
+$48$, $12$: $10 \nmid 52,\, 48,\, 52$). The trace-split re-enumeration is
+confirming the count slice by slice: trace-$48$ already
+<strong>OPTIMAL, $1 = 1$</strong>; traces $30$ and $12$ hold $\geq 2$ each
+with long-budget completion runs underway. The two survivors (both
+trace-$30$) are under the strengthened pseudo-Boolean attack. The April-era
+prediction that these matrices <em>"won't lift"</em> — made on machinery
+since shown incomplete — is now sixty per cent theorem and forty per cent
+open question, which is more honesty than it started the week with.
 </p>
 
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
@@ -84,7 +95,8 @@ unchanged.
     <div class="callout-title">How a section here gets to close</div>
     <p>
     Three conditions, none waivable: every orbit matrix of the case carries
-    an explicit <code>EXHAUSTED</code> (or a twice-verified lifted graph);
+    an explicit <code>EXHAUSTED</code>, a hand-checkable refutation theorem
+    (§2.1½), or a twice-verified lifted graph;
     the enumeration behind those matrices is double-confirmed; and the
     literature has been searched for anyone who finished the case since
     2011. Then — and only then — the question mark becomes a period.

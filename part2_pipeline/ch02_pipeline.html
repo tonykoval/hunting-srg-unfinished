@@ -52,6 +52,38 @@ try. An enumeration you have not cross-checked is a conjecture with a
 progress bar.
 </p>
 
+<h2>2.1½ &nbsp; Stage added in the field: arithmetic before search
+<em>(2026-08-11)</em></h2>
+
+<p>
+A day after this chapter was written, the pipeline gained a stage that was
+always available and never used — by us or, evidently, by anyone since 2011.
+For an $f=0$ lift under $\mathbb{Z}_p$, the $p-1$ nontrivial characters of
+$\mathbb{Z}_p$ form a <em>single Galois orbit</em>, so every character
+matrix must carry the <strong>same</strong> multiplicity $a$ of the
+eigenvalue $r$. Counting multiplicities then forces
+</p>
+
+<p style="text-align:center">
+$(p-1) \mid \big(m_r - m_0\big)$,
+</p>
+
+<p>
+where $m_r$ is the graph's multiplicity of $r$ and $m_0$ the quotient's.
+An orbit matrix that fails this divisibility <em>lifts to nothing</em> — no
+search required. The filter was validated on provably-lifting controls
+(the real quotients of $T(9)$ and of $\mathrm{srg}(25,12,5,6)$, all of which
+survive), and then it went through the open cases like weather:
+<strong>four of the seven surviving orbit matrices died in an
+afternoon</strong>, including one whose raw circulant space was
+$\sim 2^{155}$. The same identity, run through an inverse Fourier transform,
+hands the SAT encoder exact linear constraints (every nonzero shift lies in
+exactly $c$ diagonal supports) — so the theorem that kills half the matrices
+also sharpens the search on the ones it spares. The lesson joins the book's
+refrain from the other side: before buying compute, check whether the
+answer has been a page of algebra all along.
+</p>
+
 <h2>2.2 &nbsp; Stage two: lift exhaustively</h2>
 
 <p>
@@ -122,6 +154,28 @@ are finishable. Two properties matter:
     completed properly and found $5$ — agreement, not anomaly. The rule
     generalises the lift's verdict marker: <strong>an enumeration compared
     before completeness is a rumour with a decimal point</strong>.
+    </p>
+</div>
+
+<div class="callout theorem">
+    <div class="callout-title">Near-miss four: the pruner that kept one
+    witness per crime scene</div>
+    <p>
+    Found 2026-08-11, during a routine soundness A/B that nothing required.
+    The lift backtracker's default eigenvalue pruner — trusted for months in
+    the regime its own comments called safe — reported
+    <em>"1 solution — EXHAUSTED (search complete)"</em> on a known-lifting
+    test matrix. The opt-in variant found $302$ solutions in ten minutes and
+    was still counting; canonical dedup showed those $302$ were
+    <strong>two distinct isomorphism classes</strong>, of which the default
+    pruner had kept one and silently erased every labeling of the other.
+    This is the nastiest failure shape in the catalog: a pruner that
+    preserves at least one witness passes every existence test ever run —
+    it only dies under a labeled-count comparison plus canonical dedup.
+    Pruning is now opt-in, completeness claims require pruner-free runs or
+    an independent method in agreement, and the test matrix joined the
+    regression suite. No published claim had rested on it — but the next
+    one would have.
     </p>
 </div>
 
