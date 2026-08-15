@@ -114,7 +114,7 @@ are finishable. Two properties matter:
         once by a standalone checker that shares no code with it.</li>
 </ul>
 
-<h2>2.3 &nbsp; The two near-misses that built the guard rails</h2>
+<h2>2.3 &nbsp; The near-misses that built the guard rails</h2>
 
 <div class="callout theorem">
     <div class="callout-title">Near-miss one: the lift that dropped every
@@ -185,6 +185,28 @@ are finishable. Two properties matter:
     an independent method in agreement, and the test matrix joined the
     regression suite. No published claim had rested on it — but the next
     one would have.
+    </p>
+</div>
+
+<div class="callout theorem">
+    <div class="callout-title">Near-miss five: the shards that finished in
+    one node</div>
+    <p>
+    Found 2026-08-14. To make the long backtracking searches survive
+    shutdowns, the lift was split into shards by slicing the choices at the
+    root of the search tree — machinery that had existed for months. The
+    smoke test came back glowing: $31$ of $32$ shards
+    <code>EXHAUSTED</code> within seconds. Too glowing. The root's choices
+    had been canonically collapsed to a single representative, so thirty-one
+    shards owned <em>nothing</em> and one shard silently owned the entire
+    tree — and thirty-one instant "complete" verdicts had been written to a
+    ledger that the campaign would have trusted. The fix (shard at the first
+    level with real branching) was validated the only way that counts: on a
+    known case, the shards' solution counts must <em>sum to the unsharded
+    total</em> — $39+46+10+0 = 95 = 95$, every shard exhausted. Then the
+    ledger was wiped and rebuilt. Rule of the house: <strong>a search that
+    finishes suspiciously fast is guilty until its work is accounted
+    for</strong>.
     </p>
 </div>
 

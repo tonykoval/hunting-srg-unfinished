@@ -47,7 +47,7 @@ graph. Until then, the honest entries are status reports, dated.
 
 <!-- AUTO-STATUS-BEGIN -->
 <div class="callout">
-    <div class="callout-title">Machine ledger (auto-generated 2026-08-11)</div>
+    <div class="callout-title">Machine ledger (auto-generated 2026-08-15)</div>
     <p>This block is written by a script from the campaign's own ledger files — not by an author. Counts and verdicts below are exactly what the artifacts say.</p>
     <table><tr><th>enumeration slice</th><th>status</th><th>classes</th></tr>
         <tr><td><code>88/Z11 full (Rust, complete)</code></td><td>COMPLETE (complete)</td><td>5</td></tr>
@@ -57,14 +57,24 @@ graph. Until then, the honest entries are status reports, dated.
         <tr><td><code>85/Z17 full (Rust + CP-SAT, dual-confirmed)</code></td><td>COMPLETE (complete)</td><td>2</td></tr>
     </table>
     <table><tr><th>solver attempt</th><th>latest verdict</th><th>wall time</th></tr>
+        <tr><td><code>85_M0_t50_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>14400s</td></tr>
+        <tr><td><code>85_M1_t32_ctq</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>43201s</td></tr>
         <tr><td><code>88_M0_t30</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>14360s</td></tr>
-        <tr><td><code>88_M1_t12_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>7289s</td></tr>
+        <tr><td><code>88_M0_t30_ctq</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>14400s</td></tr>
+        <tr><td><code>88_M1_t12_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>14399s</td></tr>
+        <tr><td><code>88_M2_t48_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>7199s</td></tr>
+        <tr><td><code>88_M3_t30_ctq</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>14400s</td></tr>
+        <tr><td><code>88_M4_t12_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>7200s</td></tr>
+    </table>
+    <table><tr><th>sharded pruner-free backtracker</th><th>shards EXHAUSTED (permanent)</th><th>shards TIMEOUT (re-attacked at next rung)</th><th>solutions</th></tr>
+        <tr><td>88/Z11 M0 (trace 30)</td><td>20</td><td>8</td><td>0</td></tr>
+        <tr><td>88/Z11 M3 (trace 30)</td><td>20</td><td>8</td><td>0</td></tr>
+        <tr><td>85/Z17 trace-32</td><td>0</td><td>6</td><td>0</td></tr>
     </table>
 </div>
 <!-- AUTO-STATUS-END -->
 
-<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>half closed by
-hand</em></h2>
+<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>last matrix under sharded exhaustion</em></h2>
 
 <p>
 <em>Status 2026-08-11.</em> Enumeration settled: the two orbit matrices of
@@ -82,8 +92,27 @@ $f=17$ row is already closed, an UNSAT here finishes
 — and a SAT decodes to the first known graph with these parameters.
 </p>
 
-<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>five lifts became
-two</em></h2>
+<p>
+<em>Status 2026-08-15.</em> The solver road has now been walked to its end
+for this matrix: a full $12$-hour pseudo-Boolean attempt with both
+character-trace constraint families (linear diagonal counts and quadratic
+autocorrelation flatness) returned <strong>undecided</strong>, joining the
+plain-encoding timeouts before it. So the campaign switched instruments.
+The trace-$32$ matrix is now under a <strong>sharded, pruner-free
+backtracker</strong>: its first branching level has exactly $28$ choices,
+each shard owns one, and each shard's verdict is written to a ledger the
+moment it lands — progress that survives power cycles, which the earlier
+monolithic runs never did (three of them lost twelve hours apiece to
+shutdowns). Every shard that reaches <code>EXHAUSTED</code> is permanent;
+all $28$ exhausted with zero solutions is a refutation sound on its own,
+with no pruner and no solver in the chain of trust. The first six shards
+each survived their two-hour rung — expected for $p=17$, whose sub-trees
+are large — and will be re-attacked at four, eight and twenty-four hours.
+The honest position: <em>the last matrix of this case is being exhausted
+shard by shard, and nothing has lifted.</em>
+</p>
+
+<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>two survivors, twenty of thirty-two shards each banked</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The re-count played out as a
@@ -108,6 +137,23 @@ trace-$30$) are under the strengthened pseudo-Boolean attack. The April-era
 prediction that these matrices <em>"won't lift"</em> — made on machinery
 since shown incomplete — is now sixty per cent theorem and forty per cent
 open question, which is more honesty than it started the week with.
+</p>
+
+<p>
+<em>Status 2026-08-15.</em> Both trace-$30$ survivors resisted their
+full-strength solver attempts — four hours each with the complete
+constraint stack, undecided — so both went to the sharded pruner-free
+backtracker, thirty-two shards apiece. The picture that emerged is clean:
+<strong>twenty of thirty-two shards exhausted on each matrix, zero
+solutions</strong>, banked permanently, with a hard core of eight shards
+per matrix that survive two hours and now climb the time-limit ladder.
+The four no-symmetry-breaking cross-checks of the three theorem-killed
+matrices also ran to their budgets undecided — which changes nothing (those
+matrices are dead by the Galois count regardless) but is recorded because
+this book records everything. If the hard cores yield at four or eight
+hours, $\mathrm{srg}(88,27,6,9)$'s order-$11$ question closes with a
+refutation that rests on nothing but exhaustive search and a one-page
+theorem — the first period this chapter would get to print.
 </p>
 
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
