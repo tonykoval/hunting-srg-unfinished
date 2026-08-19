@@ -47,7 +47,7 @@ graph. Until then, the honest entries are status reports, dated.
 
 <!-- AUTO-STATUS-BEGIN -->
 <div class="callout">
-    <div class="callout-title">Machine ledger (auto-generated 2026-08-15)</div>
+    <div class="callout-title">Machine ledger (auto-generated 2026-08-19)</div>
     <p>This block is written by a script from the campaign's own ledger files — not by an author. Counts and verdicts below are exactly what the artifacts say.</p>
     <table><tr><th>enumeration slice</th><th>status</th><th>classes</th></tr>
         <tr><td><code>88/Z11 full (Rust, complete)</code></td><td>COMPLETE (complete)</td><td>5</td></tr>
@@ -67,10 +67,11 @@ graph. Until then, the honest entries are status reports, dated.
         <tr><td><code>88_M4_t12_nosb</code></td><td>TIMEOUT (search INCOMPLETE)</td><td>7200s</td></tr>
     </table>
     <table><tr><th>sharded pruner-free backtracker</th><th>shards EXHAUSTED (permanent)</th><th>shards TIMEOUT (re-attacked at next rung)</th><th>solutions</th></tr>
-        <tr><td>88/Z11 M0 (trace 30)</td><td>20</td><td>8</td><td>0</td></tr>
-        <tr><td>88/Z11 M3 (trace 30)</td><td>20</td><td>8</td><td>0</td></tr>
-        <tr><td>85/Z17 trace-32</td><td>0</td><td>6</td><td>0</td></tr>
+        <tr><td>88/Z11 M0 (trace 30)</td><td>22</td><td>10</td><td>0</td></tr>
+        <tr><td>88/Z11 M3 (trace 30)</td><td>22</td><td>10</td><td>0</td></tr>
+        <tr><td>85/Z17 trace-32</td><td>0</td><td>28</td><td>0</td></tr>
     </table>
+    <p><em>Shard caveat (2026-08-19):</em> the 88 matrices have only 10 choices at the shard depth, so 22 of the 32 "EXHAUSTED" shards are empty slices closed at 1 node — not real work. The 10 live shards per matrix are the whole tree, each 60M+ nodes without finishing; a 24-core depth-2 grid run returned 24/24 cells undecided at 4h. See §3.2 for what that means.</p>
 </div>
 <!-- AUTO-STATUS-END -->
 
@@ -112,7 +113,17 @@ The honest position: <em>the last matrix of this case is being exhausted
 shard by shard, and nothing has lifted.</em>
 </p>
 
-<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>two survivors, twenty of thirty-two shards each banked</em></h2>
+<p>
+<em>Status 2026-08-19.</em> All $28$ shards recorded at two hours, all
+undecided — and the numbers say why this matrix is a different animal from
+the $88$ pair: its shards reach only a few thousand nodes in two hours,
+against sixty million for $p=11$. The $p=17$ lift is not a large tree so
+much as a <em>slow</em> one; the cost per node, not the count of nodes, is
+the enemy, and no time-limit rung cures that. The next lever here is
+engineering — make the node cheaper — not hardware.
+</p>
+
+<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>two survivors, beyond exhaustion — measured</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The re-count played out as a
@@ -154,6 +165,33 @@ this book records everything. If the hard cores yield at four or eight
 hours, $\mathrm{srg}(88,27,6,9)$'s order-$11$ question closes with a
 refutation that rests on nothing but exhaustive search and a one-page
 theorem — the first period this chapter would get to print.
+</p>
+
+<p>
+<em>Status 2026-08-19.</em> The period did not come, and the reason is now a
+measurement rather than a guess. The two survivors were taken to a
+$24$-core server as a $10	imes10$ grid of depth-two cells — each cell a
+tenth of one of the home shards that had been failing at four hours. The
+first wave of $24$ cells came back <strong>$24$ of $24$ undecided at four
+hours</strong>. The tree profile explains it: thirty-five levels deep,
+branching ten at every level we measured, so even a depth-two cell holds
+more than $10^{10}$ effective nodes. Meanwhile every solver road had
+already been walked — three encodings (plain, character-trace, and a new
+one carrying the exact per-character spectrum as an annihilation identity
+over $\mathbb{Z}[\zeta_{11}]$) across three engine families, all undecided
+at two to twelve hours. The annihilation model is worth a sentence of its
+own: it refutes a Galois-dead matrix in <em>nineteen seconds</em>, yet
+cannot split a live one — which says, precisely, that the survivors'
+hardness lives <em>inside</em> the space satisfying every eigenvalue-derived
+condition we know how to write. They die by exhaustion or not at all, and
+exhaustion is out of reach for every fleet we have. Behbahani–Lam wrote
+<em>"not able to finish the program due to time constraints"</em>; fifteen
+years later, with sound sharding, four solvers and a theorem that killed
+three of their five matrices by hand, the remaining two stand for the same
+reason they stood then. The server went back to Conway's graph, where its
+hours buy certificates. The honest entry for this case is the one the book
+promised it would print when it had to: <strong>open, bounded, and
+measured</strong> — and waiting on mathematics, not machines.
 </p>
 
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
