@@ -194,6 +194,34 @@ promised it would print when it had to: <strong>open, bounded, and
 measured</strong> — and waiting on mathematics, not machines.
 </p>
 
+
+<h3>3.2.1 &nbsp; The spectral tree, measured (2026-08-20)</h3>
+<p>
+The character-matrix reformulation (exact enumeration of Hermitian
+$C \in M_8(\mathbb{Z}[\zeta_{11}])$ with $(C-3I)(C+6I)=0$, one block-row
+per orbit) was pushed to a full meet-in-the-middle engine with a gauge
+quotient ($11$-fold per row-0 block), a Galois multiplier quotient
+($\mathbb{Z}_{11}^{*}$, validated by brute-force orbit computation on
+srg(25)), and rank-$5$ completion (rows 5&ndash;7 solved, not searched).
+Probe measurements on $M_0$:
+</p>
+<ul>
+<li><b>83,336</b> canonical admissible row-0 states (28.6&nbsp;s to enumerate);</li>
+<li><b>$\approx$120,000</b> admissible row-1 extensions <em>per root</em>
+(measured exactly on a 1/1000 root sample: 19 roots &rarr; 2,281,399 pairs),
+i.e. the tree is $\sim 10^{10}$ wide at depth 2 of 8.</li>
+</ul>
+<p>
+This is a $10^{25}$ compression of the raw $10^{35}$ block-labeling space,
+and it localizes the hardness exactly: the norm/Gram join between rows 1
+and 2. It is also a quantitative strengthening of the verdict above:
+<em>even granting every eigenvalue and projector constraint for free</em>,
+an exhaustive traversal of $M_0$'s admissible tree must visit
+$\sim 10^{10}$ mid-depth states. Exhaustive closure of the two survivors
+by spectral enumeration is therefore out of reach on current hardware;
+the instrument survives as a width-measuring probe and as a 19-second
+refuter for Galois-dead matrices.
+</p>
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
 
 <p>
