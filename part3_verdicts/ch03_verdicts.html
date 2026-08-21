@@ -123,6 +123,38 @@ the enemy, and no time-limit rung cures that. The next lever here is
 engineering — make the node cheaper — not hardware.
 </p>
 
+
+<h3>3.1.1 &nbsp; charm85: the exact spectral closure run (2026-08-21)</h3>
+<p>
+The trace-$32$ matrix is now under a <em>finite</em>, exact attack — no more
+open-ended solver time-limits. The character-matrix engine built for the
+$88$ survivors (§3.2.1) turns out to fit this case far better, for one
+structural reason: here the character spectrum is $5^2(-4)^3$, so the
+projector has <strong>rank 2</strong> — rows $2$&ndash;$4$ of every candidate
+are <em>computed</em> by linear algebra, never searched. The whole question
+is a two-row search space, and it is countable: after the gauge quotient
+($17$-fold per row-$0$ block) and the Galois multiplier quotient
+($\mathbb{Z}_{17}^{*}$, validated by brute-force orbit computation on
+$\mathrm{srg}(25)$), the root set is exactly
+<strong>324{,}240 canonical row-$0$ states</strong> (enumerated in 158&nbsp;s).
+Every root sampled so far — spanning three independent probe runs — has
+<strong>zero</strong> admissible row-$1$ extensions.
+</p>
+<p>
+The production run (<code>charm85</code>) shards the roots across a
+$24$-core server (~$2.5$ days) with a $5$-shard home replica as backup;
+every shard verdict is a permanent ledger line, and the claim rule is
+strict: refutation requires <code>admissible&nbsp;=&nbsp;0</code> on
+<em>all</em> shards, while any dumped candidate decodes — by the proven
+full circle — to an actual $\mathrm{srg}(85,30,11,10)$. Context from the
+Behbahani thesis (Thm 4.7, independently re-verified this week): the full
+prime frontier for this parameter set is $\{2,3,5,17\}$ — so this run
+decides the <em>last large prime</em>. The diagonal predicate quoted above
+(every nonzero shift in exactly $2$ diagonal supports) is Ishida's
+fixed-point-free pin, and doubles as a free verification test for any
+candidate the run emits.
+</p>
+
 <h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>two survivors, beyond exhaustion — measured</em></h2>
 
 <p>
@@ -222,13 +254,70 @@ by spectral enumeration is therefore out of reach on current hardware;
 the instrument survives as a width-measuring probe and as a 19-second
 refuter for Galois-dead matrices.
 </p>
-<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued</em></h2>
+
+<p>
+<em>Frontier note (2026-08-21).</em> The Behbahani thesis (Thm 4.9) pins the
+full prime frontier for $\mathrm{srg}(88,27,6,9)$ at $\{2,3,5,11\}$ — this
+week we re-verified the surrounding exclusions ($p = 17, 19, 23$) with an
+independent implementation, seconds each at the prototype layer. The
+measurement of §3.2.1 is thus the precise reason the order-$11$ case is
+the hard one: it is the only large prime the classical machinery leaves
+standing, and its spectral tree is $\sim 10^{10}$ wide.
+</p>
+
+<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued; order $7$ closed</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The largest of the three ($173$ matrices over
 $9$ orbits). Queued behind the smaller cases; the same pipeline applies
 unchanged.
 </p>
+
+<h3>3.3.1 &nbsp; First blood: no automorphism of order $7$ (2026-08-21)</h3>
+<p>
+While the order-$11$ case waits its turn, the order-$7$ question — which
+Behbahani&ndash;Lam's Theorem 4.15 left open — is now closed:
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Theorem</div>
+    <p>
+    If an $\mathrm{srg}(99,42,21,15)$ exists, the only possible prime
+    divisors of $|\mathrm{Aut}|$ are $2, 3, 5, 11$.
+    </p>
+</div>
+<p>
+The proof is a complete orbit-matrix enumeration at $p=7$ over <em>all</em>
+admissible fixed-point counts $f \in \{1, 8, 15, 22, 29, 36\}$: every $f$
+returns zero orbit matrices as a finished (non-timeout) search, run with
+the post-audit full-diagonal engine whose $f&gt;0$ path passed positive
+controls (Petersen, both an $f=0$ and an $f=1$ known automorphism) the same
+day. An earlier run of the pre-audit engine had claimed this result; per
+this book's own rules it was treated as unproven until re-derived — the
+re-derivation confirmed it. One condition of the closing checklist below
+remains open before this is called finished: the independent-method
+double-confirmation (a CP-SAT enumeration of the same prototypes), which
+is queued.
+</p>
+
+<h3>3.4 &nbsp; The whole frontier, verified (2026-08-21)</h3>
+<p>
+A week of levers — a Gritsenko-shape survey (three targets killed by
+five-line lemmas), Ishida's trace&ndash;rank identity (which refuted the
+one surviving shape, fixed-point-free order $24$ on
+$\mathrm{srg}(96,35,10,14)$, in one congruence), and a $13$-case
+enumeration sweep — converged on a simple ground truth: the Behbahani
+thesis already held the complete prime frontiers, and our sweep now stands
+as an independent $13$-cell verification of its tables. The map, with this
+book's cases in bold:
+</p>
+<table>
+<tr><th>open target</th><th>possible prime divisors of $|\mathrm{Aut}|$</th><th>live attack</th></tr>
+<tr><td>$(69,20,7,5)$</td><td>$\{2,3\}$</td><td>order-$3$ fleet campaign</td></tr>
+<tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5,\mathbf{17}\}$</td><td><strong>charm85 (§3.1.1) — deciding $17$ now</strong></td></tr>
+<tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$</td><td>sharded backtrackers; spectral tree measured (§3.2.1)</td></tr>
+<tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
+<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$ removed — §3.3.1)</em></td><td>queued</td></tr>
+</table>
 
 <div class="callout definition">
     <div class="callout-title">How a section here gets to close</div>
