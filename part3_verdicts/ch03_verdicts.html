@@ -318,6 +318,40 @@ double-confirmation (a CP-SAT enumeration of the same prototypes), which
 is queued.
 </p>
 
+<div class="callout warning">
+    <div class="callout-title">Status update (2026-08-30): the order-$7$ theorem is CONDITIONAL</div>
+    <p>
+    After the above was written, the Behbahani thesis full text surfaced a
+    conflict: its Table 22 records $21{,}989$ orbit matrices at
+    $(p,f) = (7,1)$, where our sound re-derivation finds \emph{zero}. One
+    of the two enumerations is wrong &mdash; plausibly theirs (our engine's
+    spectral prototype layer may simply be killing raw matrices their 2009
+    conditions admitted, and our CP-SAT partitions keep returning only
+    INFEASIBLE where they close) &mdash; but per this book's own rules the
+    theorem stays <em>conditional</em> until the raw-level partition
+    finishes or the kill is derived by hand. Nothing is claimed until then.
+    </p>
+</div>
+
+<h3>3.3.2 &nbsp; The wall, measured — and $173$ becomes $2$ (2026-08-30)</h3>
+<p>
+The order-$11$ case itself moved decisively. Our sound enumeration finds
+$172$ orbit matrices (Behbahani&ndash;Lam report $173$; the $\pm 1$ is
+under arbitration and, as shown below, cannot touch the live part). The
+Galois multiplicity count &mdash; the same one-line arithmetic that killed
+the trace-$50$ matrix at $85$ &mdash; forces the quotient trace to be
+$30$, and the trace histogram
+$\{18\colon 1,\ 30\colon 2,\ 42\colon 14,\ 54\colon 44,\ 66\colon 99,\ 78\colon 12\}$
+kills $170$ of the $172$ instantly: <strong>the fifteen-year wall of
+$173$ matrices was $99\%$ illusory — exactly two matrices ever
+mattered</strong>. Both survivors have character rank $2$, so the charm
+engine applies with rows $2$&ndash;$8$ computed rather than searched
+&mdash; but the measured cost is hours per root against $1.1$&ndash;$5.2$
+million roots per matrix: the same wall class as the $88$ survivors
+(§3.2.1). The two matrices are recorded as the complete Galois-alive set;
+closing them awaits either a further quotient or new arithmetic.
+</p>
+
 <h3>3.4 &nbsp; The whole frontier, verified (2026-08-21)</h3>
 <p>
 A week of levers — a Gritsenko-shape survey (three targets killed by
@@ -335,7 +369,7 @@ book's cases in bold:
 <tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$</td><td>sharded backtrackers; spectral tree measured (§3.2.1)</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
-<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$ removed — §3.3.1)</em></td><td>queued</td></tr>
+<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td>reduced to $2$ matrices (§3.3.2)</td></tr>
 </table>
 
 <div class="callout definition">
