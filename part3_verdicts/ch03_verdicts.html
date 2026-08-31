@@ -75,7 +75,7 @@ graph. Until then, the honest entries are status reports, dated.
 </div>
 <!-- AUTO-STATUS-END -->
 
-<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>last matrix under sharded exhaustion</em></h2>
+<h2>3.1 &nbsp; $\mathrm{srg}(85,30,11,10)$, order $17$ — <em>CLOSED: no order-17 automorphism</em></h2>
 
 <p>
 <em>Status 2026-08-11.</em> Enumeration settled: the two orbit matrices of
@@ -123,6 +123,25 @@ the enemy, and no time-limit rung cures that. The next lever here is
 engineering — make the node cheaper — not hardware.
 </p>
 
+
+<div class="callout theorem">
+    <div class="callout-title">Theorem (2026-08-23, verdict shipped 2026-08-31)</div>
+    <p>
+    No $\mathrm{srg}(85,30,11,10)$ admits an automorphism of order $17$.
+    With Behbahani&ndash;Lam's Theorem 4.7, the possible prime divisors of
+    its automorphism group are exactly $\{2,3,5\}$.
+    </p>
+    <p>
+    The charm85 run finished in $41$ hours on the $24$-core box: all $24$
+    shards report <code>adm=0</code> with clean exits &mdash; every one of
+    the $324{,}240$ canonical row-$0$ states of the trace-$32$ matrix has
+    zero admissible extensions. Combined with the one-line Galois death of
+    the trace-$50$ matrix and the closed $f=17$ row, the fifteen-year
+    question mark of Behbahani&ndash;Lam is a period. The scoped prize of
+    this chapter is won &mdash; by the spectral engine, not the
+    backtracker it replaced.
+    </p>
+</div>
 
 <h3>3.1.1 &nbsp; charm85: the exact spectral closure run (2026-08-21)</h3>
 <p>
@@ -313,7 +332,7 @@ book's cases in bold:
 <table>
 <tr><th>open target</th><th>possible prime divisors of $|\mathrm{Aut}|$</th><th>live attack</th></tr>
 <tr><td>$(69,20,7,5)$</td><td>$\{2,3\}$</td><td>order-$3$ fleet campaign</td></tr>
-<tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5,\mathbf{17}\}$</td><td><strong>charm85 (§3.1.1) — deciding $17$ now</strong></td></tr>
+<tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$</td><td>sharded backtrackers; spectral tree measured (§3.2.1)</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
 <tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$ removed — §3.3.1)</em></td><td>queued</td></tr>
