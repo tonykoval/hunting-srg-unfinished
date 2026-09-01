@@ -143,6 +143,29 @@ engineering — make the node cheaper — not hardware.
     </p>
 </div>
 
+<div class="callout note">
+    <div class="callout-title">Verified twice — and the second time mattered (2026-09-01)</div>
+    <p>
+    A week after the verdict, a new rank-2 engine built for the
+    $99_{42}$ campaign was A/B-tested against the engine that proved
+    this theorem &mdash; and the A/B <em>caught a real soundness bug</em>
+    in the old code: on degenerate rank-deficient prefixes, its float
+    completion step silently discarded every extension, and on a
+    $(21,10,5,4)$ control it printed a false &ldquo;nothing here
+    (sound)&rdquo; on $140$ of $420$ matrices. For one day the theorem
+    above was formally <em>conditional</em>. The fix took one line; the
+    re-verification took the new engine $102$ minutes on four home
+    cores: all $324{,}240$ roots swept again by a genuinely different
+    algorithm (exact diagonal covers, a Dodgson-identity circle filter,
+    and division-free slaving over $\mathbb{Z}[\zeta_{17}]$) &mdash;
+    <strong>zero admissible matrices, all shards clean</strong>. The
+    theorem now rests on the new, control-validated engine alone, with
+    the original $41$-hour run as independent agreement under a
+    different shard partition. The bug hunt that briefly threatened the
+    result is what ended up certifying it.
+    </p>
+</div>
+
 <h3>3.1.1 &nbsp; charm85: the exact spectral closure run (2026-08-21)</h3>
 <p>
 The trace-$32$ matrix is now under a <em>finite</em>, exact attack — no more
