@@ -374,6 +374,52 @@ million roots per matrix: the same wall class as the $88$ survivors
 (§3.2.1). The two matrices are recorded as the complete Galois-alive set;
 closing them awaits either a further quotient or new arithmetic.
 </p>
+<p>
+<em>The new arithmetic arrived two days later &mdash; see §3.3.3.</em>
+</p>
+
+<h3>3.3.3 &nbsp; One matrix from a theorem (2026-09-01)</h3>
+
+<p>
+The wall of §3.3.2 was never a size problem; it was an
+<em>ordering</em> problem. Both survivors have character rank exactly
+$2$, which means the whole $9 \times 9$ Hermitian block is determined by
+a two-row frame &mdash; so the engine was searching row $1$ against a
+join it could have <em>solved</em>. Rebuilt that way (exact diagonal
+covers forced by the character trace, a vanishing-minor circle filter
+per block, then division-free slaving of every remaining entry over
+$\mathbb{Z}[\zeta_{11}]$), the hours-per-root wall became
+<strong>seconds</strong> per root. The same rebuild caught a real bug in
+the old completion step and re-verified the $85$ theorem for free
+(§3.1).
+</p>
+
+<p>
+With the engine fixed, the rest of the case fell in a single day, and
+the argument no longer depends on the $172$-versus-$173$ arbitration at
+all:
+</p>
+
+<table>
+<tr><th>step</th><th>how it closes</th><th>status</th></tr>
+<tr><td>$f \leq 46$, so $f \in \{0,11,22,33,44\}$</td><td>Behbahani&ndash;Lam's own fixed-point bound (thesis Thm 3.7)</td><td>by hand</td></tr>
+<tr><td>$f = 11$</td><td>each fixed vertex would have exactly $9$ fixed neighbours: a $9$-regular graph on $11$ vertices, odd handshake</td><td>by hand, machine-confirmed in $0.1$s</td></tr>
+<tr><td>$f = 22, 33, 44$</td><td>solver-proved infeasible ($4.2$s, $25.1$s, $48.9$s), agreeing with the thesis where its table reaches</td><td>closed</td></tr>
+<tr><td>$f = 0 \Rightarrow$ rank $2$, quotient trace $30$</td><td>multiplicity congruence and character-trace sum</td><td>by hand</td></tr>
+<tr><td>every trace-$30$ matrix is $\#110$ or $\#161$</td><td>complete enumeration, $1{,}092$ labelings $\to$ exactly $2$ classes</td><td>proved complete</td></tr>
+<tr><td>$\#110$ lifts to nothing</td><td>$1{,}123{,}744$ roots, $6.3$ billion diagonal covers, zero admissible</td><td><strong>closed 14:43 UTC</strong></td></tr>
+<tr><td>$\#161$ lifts to nothing</td><td>same sweep, second matrix</td><td><em>running</em></td></tr>
+</table>
+
+<p>
+That is the whole theorem, and every line but the last is done. If the
+final sweep returns what its twin returned, the number $11$ leaves
+Behbahani&ndash;Lam's prime list for
+$\mathrm{srg}(99,42,21,15)$ &mdash; the second question mark of theirs to
+fall in a week, closed by the same machine and the same habit: get the
+arithmetic to do the work the search was doing badly. Until that sweep
+prints, nothing is claimed here.
+</p>
 
 <h3>3.4 &nbsp; The whole frontier, verified (2026-08-21)</h3>
 <p>
@@ -392,7 +438,7 @@ book's cases in bold:
 <tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$</td><td>sharded backtrackers; spectral tree measured (§3.2.1)</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
-<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td>reduced to $2$ matrices (§3.3.2)</td></tr>
+<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong></td></tr>
 </table>
 
 <div class="callout definition">
