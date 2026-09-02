@@ -197,7 +197,7 @@ fixed-point-free pin, and doubles as a free verification test for any
 candidate the run emits.
 </p>
 
-<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>two survivors, beyond exhaustion — measured</em></h2>
+<h2>3.2 &nbsp; $\mathrm{srg}(88,27,6,9)$, order $11$ — <em>CLOSED: no order-11 automorphism</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The re-count played out as a
@@ -305,6 +305,68 @@ independent implementation, seconds each at the prototype layer. The
 measurement of §3.2.1 is thus the precise reason the order-$11$ case is
 the hard one: it is the only large prime the classical machinery leaves
 standing, and its spectral tree is $\sim 10^{10}$ wide.
+</p>
+
+<h3>3.2.2 &nbsp; The period (2026-09-01)</h3>
+<p>
+The mathematics arrived eleven days after the paragraph above asked for it,
+and it was a single number. The two survivors share quotient trace $30$,
+and that trace fixes the character spectrum of every lift: $3^5(-6)^3$.
+Nobody had looked at the second exponent. It says that $G = 3I - C$ is a
+positive-semidefinite matrix of <strong>rank three</strong> in every
+embedding of $\mathbb{Z}[\zeta_{11}]$ — so three orbits carry the whole
+Gram geometry, and every other orbit's block is not searched but
+<em>computed</em>: its inner products with the frame are forced by an exact
+Schur identity over the ring, its diagonal by the exact-cover residual,
+and floating point enters only as a prefilter that is re-checked exactly.
+This is the same idea that closed §3.1 (there the rank was two); the
+$88$ pair had been attacked for a month by engines that traversed the
+$10^{10}$-wide tree of §3.2.1 instead of noticing that the tree has rank
+three. The new engine (<code>--frame3</code>) was validated the way the
+rank-two one was: dump-identical solution sets against the default engine on
+seventeen matrices across six parameter sets — including
+$\mathrm{srg}(40,12,2,4)/\mathbb{Z}_5$, which has exactly the $88$ rank
+shape — and must-find controls on Paley$(25)$ and the Paley$(49)$
+quotient. A second cut came from symmetry: the orbit permutations that
+preserve the quotient matrix act on its lifts, and the second survivor has
+$240$ of them, which shrank its root set from $426{,}804$ to $2{,}550$.
+</p>
+<p>
+<strong>Verdict.</strong> Both matrices, four shards each, every shard
+<code>admissible&nbsp;=&nbsp;0</code> with clean exit; dump files empty.
+Wall time on four cores of the home box: <strong>six and a half
+minutes</strong> — two for the first matrix ($42{,}208$ roots), four for
+the second — against the months of undecided solver hours, the
+$24$-of-$24$ undecided grid cells, and Behbahani–Lam's own
+<em>"not able to finish"</em>. The chain is short enough to print in full:
+an order-$11$ automorphism fixes $f \le 33$ points with $11 \mid f$, and
+since $11 > \max(\lambda,\mu)$ the fixed subgraph must be empty, a single
+vertex, $K_8$, or an $\mathrm{srg}(f,k',6,9)$ — the three $f>0$ options
+fail integrality, so $f = 0$; the orbit matrix is then one of exactly five
+(our count, their count); the Galois multiplicity count kills three by
+hand; and the rank-three engine finds no character matrix for the other
+two. Hence:
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Theorem (2026-09-01)</div>
+    <p>No strongly regular graph with parameters $(88,27,6,9)$ admits an
+    automorphism of order $11$. The prime frontier of Behbahani–Lam's
+    Theorem 4.9 tightens from $\{2,3,5,11\}$ to $\{2,3,5\}$.</p>
+</div>
+<p>
+<em>Evidence grade, stated plainly.</em> This is a single-engine verdict,
+resting on the validation battery above rather than on an independent
+method applied to these two matrices. The "twenty-two of thirty-two shards
+exhausted" of the backtracker ledgers is <em>not</em> corroboration — those
+shards were empty slices (the caveat of 2026-08-19), and the ten live
+shards per matrix never finished. Two hardening runs follow the same rule
+as §3.1's re-verification: the engine re-run without the automorphism
+quotient over the full multiplier root set ($83{,}336$ and $426{,}804$
+roots; the first matrix is already clean, $4/4$), and the default
+row-by-row engine on a root slice as a cross-check. Their ledger lines are
+recorded in the repository (<code>out/miqcp/charm88_f3*</code>). The second
+of the three question marks is closed; the third (§3.3.3) is one matrix
+from joining it.
 </p>
 
 <h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued; order $7$ closed</em></h2>
@@ -436,7 +498,7 @@ book's cases in bold:
 <tr><th>open target</th><th>possible prime divisors of $|\mathrm{Aut}|$</th><th>live attack</th></tr>
 <tr><td>$(69,20,7,5)$</td><td>$\{2,3\}$</td><td>order-$3$ fleet campaign</td></tr>
 <tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
-<tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$</td><td>sharded backtrackers; spectral tree measured (§3.2.1)</td></tr>
+<tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.2.2)</em></td><td>rank-3 frame engine, 6.5 minutes; hardening runs recorded</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
 <tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong></td></tr>
 </table>
