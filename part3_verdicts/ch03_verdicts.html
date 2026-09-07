@@ -483,7 +483,74 @@ arithmetic to do the work the search was doing badly. Until that sweep
 prints, nothing is claimed here.
 </p>
 
-<h3>3.4 &nbsp; The whole frontier, verified (2026-08-21)</h3>
+<h2>3.4 &nbsp; $\mathrm{srg}(100,33,8,12)$, order $11$ — <em>CLOSED: no order-11 automorphism</em></h2>
+
+<p>
+<em>Status 2026-09-02.</em> This case was not on the map above until the
+Brouwer table was re-read verbatim: the list this book started from was
+stale, and $(100,33,8,12)$ — open, with Behbahani–Lam's Theorem 4.16
+leaving $\{2,3,5,11\}$ as the possible prime orders and <em>no table at
+all</em> for the parameter set in the thesis — was the one open target
+below $100$ vertices nobody had run a single orbit-matrix row for. The
+rank survey of §3.2.2 found it at once: an automorphism of order $11$
+fixes $f \equiv 100 \equiv 1 \pmod{11}$ points, the Behbahani bound
+$f \le \max(\lambda,\mu)\,n/(k-s) = 1200/40 = 30$ leaves $f \in \{1,12,23\}$,
+and for $f=1$ the quotient has $o = 9$ orbits and trace $30$, which forces
+the character spectrum $3^6(-7)^3$ of every lift. The second exponent is
+again a three: $G = 3I - C$ is positive semidefinite of rank three, the
+exact shape the engine of §3.2.2 was built for.
+</p>
+<p>
+<em>Enumeration.</em> $f=12$ and $f=23$ have no orbit matrix at all — CP-SAT
+proves both rows infeasible in $6.9$ and $29.7$ seconds, independently of
+the Rust generator (whose own zero on the $f=12$ row would not have been
+admissible as evidence: that row took the route that was found unsound on
+2026-09-02). The $f=1$ row has exactly $18$ orbit matrices, counted by the
+full-diagonal backtracking generator, re-derived class-exactly after the
+generator repairs of 2026-09-02 ($18 = 18$), and cross-checked by CP-SAT,
+whose one-hour run found $13$ classes, every one of them among the $18$
+and none outside. The one imperfection is that the CP-SAT run ended
+FEASIBLE, not OPTIMAL, so the $18$ rests on the generator's completeness
+(audited by the must-find harness) plus a consistent lower bound, not on
+two complete counts.
+</p>
+<p>
+<em>The closure run (2026-09-02 to 2026-09-07).</em> The rank-three frame
+engine in its fixed-point mode (<code>--f 1 --mult --aut --frame3</code>),
+one sequential run for the first matrix ($1{,}455{,}171$ roots, seven
+hours) and three shards for each of the other seventeen, at low priority on
+the home box between other lanes: <strong>fifty-one of fifty-one shards
+exit clean with <code>admissible&nbsp;=&nbsp;0</code>, all dump files
+empty</strong>; $47$ million roots, $8\times10^8$ nodes, about $136$
+CPU-hours (the last matrix twice, its first run lost to a shutdown). The
+ledger lines <code>CHARM100_M0..M17_ALL_SHARDS_DONE adm_total=0</code> and
+the per-shard <code>EXIT=0</code> lines are in
+<code>out/miqcp/charm100_f1/</code>. Hence:
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Theorem (2026-09-07)</div>
+    <p>No strongly regular graph with parameters $(100,33,8,12)$ admits an
+    automorphism of order $11$. The prime frontier of Behbahani–Lam's
+    Theorem 4.16 tightens from $\{2,3,5,11\}$ to $\{2,3,5\}$.</p>
+</div>
+<p>
+<em>Evidence grade.</em> The same as §3.2.2, stated the same way: a
+single-engine verdict on the eighteen matrices, resting on the frame
+engine's validation battery (dump-identical solution sets against the
+default engine on seventeen matrices across six parameter sets; the
+fixed-point mode checked on the $\mathbb{Z}_3$ quotients of Petersen,
+$T(8)$ and $\mathrm{srg}(16,6,2,2)$, where it must find and does find the
+known lifts; the symmetry cut checked by the §3.2 no-symmetry re-runs).
+The natural hardening job is the same re-run without the symmetry quotient
+— the quotient matrices here have tiny automorphism groups (order $2$ for
+the last one), so it costs about twice the closure and belongs on a remote
+box, not on the critical path. With this the fourth of the book's cases
+gets its period, and every open parameter set below $100$ vertices now has
+prime frontier $\subseteq \{2,3,5\}$ except $\mathrm{srg}(99,42,21,15)$,
+whose order-$11$ case (§3.3.3) is the last large prime standing.
+</p>
+
+<h3>3.5 &nbsp; The whole frontier, verified (2026-08-21)</h3>
 <p>
 A week of levers — a Gritsenko-shape survey (three targets killed by
 five-line lemmas), Ishida's trace&ndash;rank identity (which refuted the
@@ -501,6 +568,7 @@ book's cases in bold:
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.2.2)</em></td><td>rank-3 frame engine, 6.5 minutes; hardening runs recorded</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
 <tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong></td></tr>
+<tr><td><strong>$(100,33,8,12)$</strong></td><td>${2,3,5}$ <em>(11 closed — §3.4; absent from the list this book began with; Thm 4.16 of the thesis)</em></td><td>rank-3 frame engine in fixed-point mode, 136 CPU-hours over five days; hardening run pending</td></tr>
 </table>
 
 <div class="callout definition">

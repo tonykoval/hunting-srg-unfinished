@@ -6,9 +6,10 @@ An interactive book about finishing the three cases Behbahani & Lam's
 
 | case | orbit matrices | status |
 |---|---|---|
-| srg(85,30,11,10), order 17, fixed-point-free | 2 | lifts in progress |
-| srg(88,27,6,9), order 11, fixed-point-free | 5 | enumeration cross-check |
-| srg(99,42,21,15), order 11, fixed-point-free | 173 | queued |
+| srg(85,30,11,10), order 17, fixed-point-free | 2 | **CLOSED** — theorem, verified twice (§3.1) |
+| srg(88,27,6,9), order 11, fixed-point-free | 5 | **CLOSED** — theorem, rank-3 frame engine (§3.2) |
+| srg(99,42,21,15), order 11, fixed-point-free | 173 → 2 | one matrix from a theorem (§3.3) |
+| srg(100,33,8,12), order 11, one fixed point | 18 | **CLOSED** — theorem 2026-09-07 (§3.4; a fourth case, absent from the 2011 tables) |
 
 Every one of these parameter sets is an open existence question, so each
 finished case ends one of exactly two ways: a **new strongly regular graph**,
