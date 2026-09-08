@@ -483,6 +483,46 @@ arithmetic to do the work the search was doing badly. Until that sweep
 prints, nothing is claimed here.
 </p>
 
+<h3>3.3.4 &nbsp; Order $3$: the fixed-point range collapses (2026-09-08)</h3>
+<p>
+Behbahani–Lam ran no $p=3$ rows for this parameter set at all, so its order-$3$ case had thirteen
+candidate fixed-point counts, $f = 0, 3, \dots, 36$, each a separate enumeration, and the two largest
+had just burnt four hours each without finishing. Two pieces of algebra removed eight of them by
+hand. On the character block $C$ of an order-$3$ automorphism the identity $(C-rI)(C-sI)=0$ gives
+$G^2 = dG$ for $G = rI - C$ ($d = r - s = 12$), whose diagonal says that a row with $a_{ii} = 0$ has
+exactly $27$ off-diagonal entries in $\{1,2\}$ and a row with $a_{ii} = 2$ exactly $20$. With
+$o = (99-f)/3 \le 27$ orbits no row of the first kind fits, so for $18 \le f \le 36$ every diagonal is
+$2$, every $C_{ii}$ is $\omega + \omega^2 = -1$, and the trace of $C$ against its spectrum
+$\{9^m, (-3)^{o-m}\}$ forces $12m = 2o$: only $o = 24$, i.e. $f = 27$, survives; $f \ge 39$ admits no
+row type at all. The controls are the known graphs: the true GQ$(3,5)$ and Paley$(81)$ quotients sit
+exactly where the identity predicts, $T(9)$'s three order-$3$ actions pass and its three impossible
+fixed-point counts fail, with the generator agreeing on all of them.
+</p>
+<p>
+The last row, $f = 27$, has a character block of rank $4$ — $24$ vectors of norm $\sqrt 2$ in
+$\mathbb{C}^4$ with pairwise inner products of modulus $0$ or $1$ and a tight-frame identity — small
+enough to decide without ever writing an orbit matrix. A CP-SAT model over the exact Eisenstein
+arithmetic (basis Gram classes, inner-product vectors as columns, frame budgets as integer
+equations, every constraint a necessary condition) returned INFEASIBLE for all $100$ basis classes
+in $117$ seconds, after finding feasible blocks on rank-$1$ to rank-$4$ controls where they exist
+($L_2(7)$ with a rank-$4$ action among them) and none where they do not.
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Lemma (2026-09-08)</div>
+    <p>An automorphism of order $3$ of a strongly regular graph with parameters $(99,42,21,15)$ fixes
+    $0$, $3$, $6$, $9$, $12$ or $15$ vertices.</p>
+</div>
+<p>
+<em>Evidence grade.</em> A hand argument with positive and negative computational controls, plus a
+computational proof by a new tool that has not yet been re-derived by a second implementation; it
+does not touch the order-$11$ question of §3.3.3 and does not by itself decide the order-$3$ case —
+it says where that case lives: six rows, all with at least $28$ orbits. One more thing fell out of
+the controls: the fixed-point bound our frontier survey had been quoting, $f \le \max(\lambda,\mu)\,n/(k-s)$,
+is false ($T(10)$ has a $3$-cycle fixing $21 > 20$ pairs); the order-$11$ theorem for
+srg$(100,33,8,12)$ in §3.4 had cited it for "$f \in \{1,12,23\}$" and was re-checked the same
+evening — the larger $f$ admit no orbit-row prototype at all, so it stands on that firmer ground.
+</p>
+
 <h2>3.4 &nbsp; $\mathrm{srg}(100,33,8,12)$, order $11$ — <em>CLOSED: no order-11 automorphism</em></h2>
 
 <p>
@@ -567,7 +607,7 @@ book's cases in bold:
 <tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.2.2)</em></td><td>rank-3 frame engine, 6.5 minutes; hardening runs recorded</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
-<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong></td></tr>
+<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,5,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong>; order $3$: fixed points in ${0,3,6,9,12,15}$ only (§3.3.4)</td></tr>
 <tr><td><strong>$(100,33,8,12)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.4; absent from the list this book began with; Thm 4.16 of the thesis)</em></td><td>rank-3 frame engine in fixed-point mode, 136 CPU-hours over five days; hardening run pending</td></tr>
 </table>
 
