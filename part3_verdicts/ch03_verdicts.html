@@ -369,7 +369,7 @@ of the three question marks is closed; the third (§3.3.3) is one matrix
 from joining it.
 </p>
 
-<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued; order $7$ closed</em></h2>
+<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued; orders $5$ and $7$ closed</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The largest of the three ($173$ matrices over
@@ -521,6 +521,47 @@ the controls: the fixed-point bound our frontier survey had been quoting, $f \le
 is false ($T(10)$ has a $3$-cycle fixing $21 > 20$ pairs); the order-$11$ theorem for
 srg$(100,33,8,12)$ in §3.4 had cited it for "$f \in \{1,12,23\}$" and was re-checked the same
 evening — the larger $f$ admit no orbit-row prototype at all, so it stands on that firmer ground.
+</p>
+
+<h3>3.3.5 &nbsp; Order $5$: closed (2026-09-14)</h3>
+<p>
+An automorphism of order $5$ fixes $f \equiv 4 \pmod 5$ vertices and has $o = (99-f)/5$ orbits of
+length $5$. The order-$3$ algebra of §3.3.4 transfers to $p = 5$ with one change: the character block
+now lives over $\mathbb{Z}[\zeta_5]$, and the trace identity that pinned $o = 24$ at $p = 3$ here pins the
+rank $a$ of the block and the diagonal-type counts $(n_0, n_2, n_4)$ from $f$ alone. Its counting half
+kills every row with $f \ge 54$. A second hand lemma, the row-capacity bound — each orbit row must
+distribute its degree over the $o - 1$ other orbits, and each diagonal type needs a minimum $o$ to do
+so ($19$, $16$, $16$, $15$ for the four types of this graph) — kills $f = 29, 34, 39, 44, 49$, where
+$o \le 14$, and inside the rows $f = 9, 14, 19$ every case with a type-$0$ row. Both lemmas were checked
+on the $90$ order-$5$ quotients of graphs that exist ($188$ row-type checks, $60$ of them tight).
+</p>
+<p>
+What the lemmas leave — the rank-$3$ cases of $f = 9, 14, 19, 24$, one rank-$4$ case at $f = 19$, and
+the ten rank-$4$ cases of $f = 4$ — went to the basis-class engine: enumerate the Gram classes of a
+basis of the frame, and for each class let CP-SAT pick the $o$ columns of the block from the finitely
+many inner-product vectors the class admits, with the frame identity $G^2 = 12G$ as exact integer
+equations in four coordinates. Every class of every case returned INFEASIBLE. The largest row,
+$f = 4$, is ten cases with $20{,}652$ to $337{,}637$ classes each, split between the home box and the
+server. Nine classes on the server came back "UNKNOWN" and stayed so after a two-hour re-decide; the
+logs showed each verdict took $0.6$ seconds. They were not hard instances but a size guard in the
+engine (more than $25{,}000$ candidate columns), which returned before the pruning that would have
+decided them. With the guard moved after the pruning, one class fell to CP-SAT in $432$ seconds and
+the other eight to the degree pruning alone: no candidate column had enough compatible partners.
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Theorem (2026-09-14)</div>
+    <p>A strongly regular graph with parameters $(99,42,21,15)$ has no automorphism of order $5$.</p>
+</div>
+<p>
+<em>Evidence grade.</em> Single engine. The two hand lemmas are controlled on every known order-$5$
+quotient; the engine passes its must-find suite ($88$ of $88$ known frames found, $140$ of $140$ true
+bases recognised, re-run after the guard fix) but has not been re-derived by a second implementation,
+and the $f = 4$ row has no independent decision (the orbit-matrix generator reports zero prototypes
+there in two seconds, which is not quoted as evidence until its own control of that shape has run).
+The frontier of this parameter set is now $\{2, 3\}$, plus the conditional order-$7$ result of
+§3.3.1 and the single order-$11$ matrix of §3.3.3, which was still lifting on the server as this
+was written. A lesson for the ledgers goes with it: an UNKNOWN that returns in under a second is a
+verdict about the tool, not the instance — read the elapsed time before buying a longer limit.
 </p>
 
 <h2>3.4 &nbsp; $\mathrm{srg}(100,33,8,12)$, order $11$ — <em>CLOSED: no order-11 automorphism</em></h2>
