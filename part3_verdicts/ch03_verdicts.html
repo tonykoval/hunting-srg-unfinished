@@ -369,7 +369,7 @@ of the three question marks is closed; the third (§3.3.3) is one matrix
 from joining it.
 </p>
 
-<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>queued; orders $5$ and $7$ closed</em></h2>
+<h2>3.3 &nbsp; $\mathrm{srg}(99,42,21,15)$, order $11$ — <em>CLOSED: no order-11 automorphism (order $5$ closed, order $7$ conditional)</em></h2>
 
 <p>
 <em>Status 2026-08-10.</em> The largest of the three ($173$ matrices over
@@ -470,7 +470,7 @@ all:
 <tr><td>$f = 0 \Rightarrow$ rank $2$, quotient trace $30$</td><td>multiplicity congruence and character-trace sum</td><td>by hand</td></tr>
 <tr><td>every trace-$30$ matrix is $\#110$ or $\#161$</td><td>complete enumeration, $1{,}092$ labelings $\to$ exactly $2$ classes</td><td>proved complete</td></tr>
 <tr><td>$\#110$ lifts to nothing</td><td>$1{,}123{,}744$ roots, $6.3$ billion diagonal covers, zero admissible</td><td><strong>closed 14:43 UTC</strong></td></tr>
-<tr><td>$\#161$ lifts to nothing</td><td>same sweep, second matrix</td><td><em>running</em></td></tr>
+<tr><td>$\#161$ lifts to nothing</td><td>same sweep, second matrix, $24$ shards, zero admissible</td><td>closed 2026-09-15 06:03 UTC</td></tr>
 </table>
 
 <p>
@@ -481,6 +481,28 @@ $\mathrm{srg}(99,42,21,15)$ &mdash; the second question mark of theirs to
 fall in a week, closed by the same machine and the same habit: get the
 arithmetic to do the work the search was doing badly. Until that sweep
 prints, nothing is claimed here.
+</p>
+<p>
+<em>Update 2026-09-15.</em> The sweep printed. Run on a rented box as $24$ root shards of the same
+engine, $\#161$ finished at 06:03 UTC: every shard exited cleanly with zero admissible character
+matrices and the dump files are empty, exactly as its twin $\#110$ had two weeks earlier. One line of
+the table above needed repair on the way: the fixed-point bound quoted in its first row is false in
+general (§3.3.4 has the counterexample, $T(10)$), so that row now rests on firmer ground — for
+$f = 44, 55, 66, 77, 88$ there is no admissible orbit-row prototype at all (the generator's complete
+enumeration returns zero in seconds), $f = 22, 33$ and $44$ are solver-proved infeasible, and
+$f = 11$ dies by the handshake argument.
+</p>
+<div class="callout theorem">
+    <div class="callout-title">Theorem (2026-09-15)</div>
+    <p>A strongly regular graph with parameters $(99,42,21,15)$ has no automorphism of order $11$.
+    With §3.3.5 and Behbahani&ndash;Lam's Theorem 4.15, the possible prime divisors of the order of
+    its automorphism group are $2$ and $3$, and $7$ only if the conditional step of §3.3.1 fails.</p>
+</div>
+<p>
+<em>Evidence grade.</em> Single engine, the same control-validated frame engine that carries the
+$85$ and $88$ theorems; the hand steps (rank $2$, quotient trace $30$, the $f = 11$ handshake) are
+elementary, and the completeness of the two-matrix list is a solver optimum with an explicit
+$1{,}092$-labelling count. Behbahani and Lam's question mark for this parameter set is answered.
 </p>
 
 <h3>3.3.4 &nbsp; Order $3$: the fixed-point range collapses (2026-09-08)</h3>
@@ -628,7 +650,7 @@ the last one), so it costs about twice the closure and belongs on a remote
 box, not on the critical path. With this the fourth of the book's cases
 gets its period, and every open parameter set below $100$ vertices now has
 prime frontier $\subseteq \{2,3,5\}$ except $\mathrm{srg}(99,42,21,15)$,
-whose order-$11$ case (§3.3.3) is the last large prime standing.
+whose order-$11$ case (§3.3.3) is the last large prime standing. (It fell on 2026-09-15; see §3.3.3.)
 </p>
 
 <h3>3.5 &nbsp; The whole frontier, verified (2026-08-21)</h3>
@@ -648,7 +670,7 @@ book's cases in bold:
 <tr><td><strong>$(85,30,11,10)$</strong></td><td>$\{2,3,5\}$ <em>(17 closed — §3.1)</em></td><td>next: the $p=5$ endgame</td></tr>
 <tr><td><strong>$(88,27,6,9)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.2.2)</em></td><td>rank-3 frame engine, 6.5 minutes; hardening runs recorded</td></tr>
 <tr><td>$(96,35,10,14)$</td><td>$\{2,3,5\}$</td><td>&mdash;</td></tr>
-<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3,\mathbf{11}\}$ <em>(order $7$: conditional — §3.3.1; order $5$: closed — §3.3.5)</em></td><td><strong>order $11$: one matrix from closed (§3.3.3)</strong>; order $3$: fixed points in ${0,3,6,9,12,15}$ only (§3.3.4); order $5$: none (§3.3.5)</td></tr>
+<tr><td><strong>$(99,42,21,15)$</strong></td><td>$\{2,3\}$ <em>(order $7$: conditional — §3.3.1; orders $5$, $11$: closed — §3.3.5, §3.3.3)</em></td><td><strong>order $11$: closed 2026-09-15 (§3.3.3)</strong>; order $3$: fixed points in ${0,3,6,9,12,15}$ only (§3.3.4); order $5$: none (§3.3.5)</td></tr>
 <tr><td><strong>$(100,33,8,12)$</strong></td><td>$\{2,3,5\}$ <em>(11 closed — §3.4; absent from the list this book began with; Thm 4.16 of the thesis)</em></td><td>rank-3 frame engine in fixed-point mode, 136 CPU-hours over five days; hardening run pending</td></tr>
 </table>
 
